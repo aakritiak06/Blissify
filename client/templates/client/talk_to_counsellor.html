@@ -1,0 +1,114 @@
+{%extends "client/base.html"%}
+{%load socialaccount%}
+<!--
+	Mentally by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+
+ {%block intro%}{%endblock%}
+				
+ {%block home_state%}<li>{%endblock%}
+ {%block talk_state%}<li class="active">{%endblock%}
+ {%block session_state%}<li>{%endblock%}
+ {%block faqs_state%}<li>{%endblock%}
+ {%block blog_state%}<li>{%endblock%}
+ 	{%block message_state%}<li>{%endblock%}
+ {%block about_state%}<li>{%endblock%}
+
+
+ {%block content%}
+
+ <!-- Post -->
+	
+ {%if show%}
+	<section class="post">
+		
+		<header class="major">
+			<!-- <span class="date">April 25, 2017</span> -->
+			<h1>Talk to a counsellor</h1>
+			<h4>Please describe how you feel briefly. =) </h4>
+		</header>
+		
+		<form method="POST"  class="alt" enctype="multipart/form-data">
+			{% csrf_token %}
+
+			<!-- <div class="table-wrapper">
+				<table>
+					{{form.as_table}}
+				</table>
+			</div> -->
+
+			<div class="12u$">
+				
+				<textarea name="Message" id="Message" placeholder="Write your heart out !!" rows="6"></textarea>
+				<!-- <input id="Message" type="text" name="Message"> -->
+				
+			</div>
+			<br>
+
+			<div class="12u$">
+				<ul class="actions">
+					{%if user.is_authenticated%}
+					<li><input type="submit" value="Submit" class="special" /></li>
+					{%else%}
+					<li><a href="{% url 'login' %}" class="button">Login to submit</a></li>
+					{%endif%}
+					<li><input type="reset" value="Reset" /></li>
+					
+					<!-- <li><a href={{form.extra_data}} class="button icon fa-upload">Upload an audio/video description</a></li> -->
+				</ul>
+			</div>
+		</form>
+		
+	</section>
+
+	{%else%}
+
+	<header class="major">
+			<!-- <span class="date">April 25, 2017</span> -->
+			<h1>Talk to a counsellor</h1>
+			
+		</header>
+
+	
+
+ {%endif%}
+
+ {%if message%}
+<script>
+    alert('{{ message }}');
+	</script>
+ {%endif%}
+	
+
+
+	<section class="posts">
+
+		{%for counsellor,summary in all_counsellors%}
+			<article>
+				<header>
+					<!-- <span class="date">April 24, 2017</span> -->
+					<h2><a href="{%url 'counsellor-profile' counsellor.pk%}">{{counsellor.Name}}</a></h2>
+				</header>
+				<a href="{%url 'counsellor-profile' counsellor.pk%}" class="image fit">
+					 {% if counsellor.profilepicurl != "-" %}
+					<img src="{{counsellor.profilepicurl}}" style="max-width: 600px; max-height: 600px" alt="" />
+					{%else%}
+					<img src="../../static/client/images/pic1.jpeg" style="max-width: 600px; max-height: 600px" alt="" />
+					{%endif%}
+				</a>
+				<p>{{summary}}<br>
+					<a href="#" class="button small icon fa-tag">Anger</a> <a href="#" class="button small icon fa-tag">Stress</a> <a href="#" class="button small icon fa-tag">Expertise tags</a></p>
+				<ul class="actions">
+					<li><a href="{%url 'message-detail' pk=counsellor.User.id %}" class="button">Message</a></li>
+					<li><a href="{%url 'book-appointment' pk=counsellor.pk %}" class="button">Book an appointment</a></li>
+
+				</ul>
+			</article>
+		{%endfor%}	
+			
+		</section>
+
+{%endblock%}

@@ -1,0 +1,68 @@
+{%extends "client/base.html"%}
+<!--
+	Mentally by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+
+{%block home_state%}<li >{%endblock%}
+{%if client%}}  
+{%block talk_state%}<li>{%endblock%}
+{%block session_state%}<li>{%endblock%}
+{%else%}
+{%block client_state%}<li>{%endblock%}
+{%block active_state%}<li>{%endblock%}  
+{%endif%}   
+{%block faqs_state%}<li class="active">{%endblock%}
+{%block blog_state%}<li>{%endblock%}
+{%block message_state%}<li>{%endblock%}
+{%block about_state%}<li>{%endblock%}
+
+{%block content%}
+
+<!-- Post -->
+	<section class="post">
+	<header class="major">
+		<span class="date">{% now "jS F Y H:i" %}</span>
+		<h1>FAQs,Facts and Ask</h1>
+		<p></p>
+	</header>
+
+    {%for post in faq_big%}
+    {%if post.picture%}
+    <div class="image main"><img src="/client/media/{{post.picture}}" alt="" height="300" width="600" /></div>
+    {%endif%}
+    <h3>{{post.title}}</h3>
+    <p>{{post.content}}</p>
+    {%endfor%}
+
+
+    {%for post in faq_small%}
+    <h3>{{post.title}}</h3>
+    <p>{{post.content}}</p>
+    {%endfor%}
+
+    {%if message%}
+<script>
+    alert('{{ message }}');
+    </script>
+{%endif%}
+
+    
+    
+    <form method="post">
+    <h3>You can ask your question here-</h3>
+        {%csrf_token%}
+        <input type="text" id="Question" name="Question" placeholder="What's on your mind?"><br>
+        <br>
+        <input type="submit" value="Submit">
+        <input type="reset">
+    </form>
+
+
+
+
+	</section>
+
+{%endblock%}

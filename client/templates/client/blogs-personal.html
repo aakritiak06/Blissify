@@ -1,0 +1,57 @@
+{%extends "client/base.html"%}
+
+
+{%block intro%}{%endblock%}
+{%block home_state%}<li >{%endblock%}
+{%if client%}}  
+{%block talk_state%}<li>{%endblock%}
+{%block session_state%}<li>{%endblock%}
+{%else%}
+{%block client_state%}<li>{%endblock%}
+{%block active_state%}<li>{%endblock%}  
+{%endif%}   
+{%block faqs_state%}<li>{%endblock%}
+{%block blog_state%}<li class="active">{%endblock%}
+{%block message_state%}<li>{%endblock%}
+{%block about_state%}<li>{%endblock%}
+
+{%block content%}
+<!--
+<ul>
+{% for post in object_list %}
+    <li><a href="{% url 'blog_detail' post.pk %}">{{ post.title}}</a><br/>
+    {{post.author}}</br>
+    {{ post.body}}</li>
+{% endfor %}
+</ul>
+-->
+    <header class="major">
+		<span class="date">{% now "jS F Y H:i" %}</span>
+        <h2>Your Blogs</h2>
+	</header>
+
+
+    <section class="posts">
+        {%for post in all_posts%}
+			<article>
+            <header>
+            <h3>{{post.title}}</h3>
+            </header>
+				<a href="#" class="image fit"><img src="{{post.picurl}}" alt="" /></a>
+				<p>{{post.brief}}</p>
+				<ul class="actions">
+					<li><a href="{% url 'update-blog' post.pk %}" class="button">Update Blog</a></li>
+                    <li><a onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'delete-blog' post.pk %}" class="button">Delete Blog</a></li>
+				</ul>
+			</article>
+        {%endfor%}
+		
+	    </section>
+        <article class="post featured">
+            <ul class="actions">
+                <li><a href="{% url 'add_post' %}" class="button big">Write a Blog</a></li>
+            </ul>
+        </article>
+		
+
+{%endblock%}

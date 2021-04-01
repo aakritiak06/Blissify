@@ -1,0 +1,69 @@
+{%extends "client/base.html"%}
+
+
+{%block home_state%}<li >{%endblock%}
+{%if client%}}  
+{%block talk_state%}<li>{%endblock%}
+{%block session_state%}<li>{%endblock%}
+{%else%}
+{%block client_state%}<li>{%endblock%}
+{%block active_state%}<li>{%endblock%}  
+{%endif%}   
+{%block faqs_state%}<li>{%endblock%}
+{%block blog_state%}<li>{%endblock%}
+{%block message_state%}<li>{%endblock%}
+{%block about_state%}<li>{%endblock%}
+
+{%block content%}
+
+
+<header class="major"><h2>{{name}}'s Session Notes</h2></header>
+
+
+<div>
+
+
+	
+	<form method="POST" enctype="multipart/form-data">
+		{%csrf_token%}
+		<h4>Add new session notes !</h4>
+	<input type="text" name="title" placeholder="Enter title" />
+	<textarea type="text" name="about" placeholder="Enter additional details about session. (Optional). Please upload .pdf file below." rows="4" ></textarea>
+	<input type="file" id="image" name="sessNotes"/>
+
+	<ul class = "actions">
+	<li><input type="submit" class = "button special" value = "+ Add Notes"/></li>
+	<li><input type="reset" class = "button" value = "Reset"/></li>
+	</ul>
+	</form>
+
+
+
+
+	
+
+
+
+
+</div>
+
+{%for note in old_notes%}
+
+	<ul class="actions fit">
+	
+	<li><a href="{%url 'view-notes' pk=note.id%}" class = "button fit big">{{note.title}}</a></li>
+	
+	<li><a href="{%url 'view-notes' pk=note.id%}" class = "button special fit big">Open</a></li>
+	<!-- &ensp; -->
+	<li><a onclick="return confirm('Are you sure you want to delete this?')" href="{%url 'delete-notes' pk=note.id%}" class = "button special small">Delete</a></li>
+	
+	</ul>
+
+	{%endfor%}
+
+
+
+{%endblock%}
+
+
+

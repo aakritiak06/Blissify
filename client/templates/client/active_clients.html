@@ -1,0 +1,61 @@
+{%extends "client/base.html"%}
+<!--
+	Mentally by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+
+{%block intro%}{%endblock%}
+				
+{%block home_state%}<li>{%endblock%}
+{%block client_state%}<li>{%endblock%}
+{%block active_state%}<li class="active">{%endblock%}
+{%block faqs_state%}<li>{%endblock%}
+{%block blog_state%}<li>{%endblock%}
+	{%block message_state%}<li>{%endblock%}
+{%block about_state%}<li>{%endblock%}
+
+
+{%block content%}
+
+<!-- Post -->
+	<section class="posts">
+
+		{%for client,time in all_clients%}
+			<article>
+				<header>
+					<!-- <span class="date">April 24, 2017</span> -->
+					<h2><a href="#">{{client.Name}}</a></h2>
+				</header>
+				<p><b>Booking Time: {{time}}</b></p>
+				<ul class="actions">
+					<li><a href="{%url 'view-description' pk=client.User.id %}" class="button small">Case Report</a></li>
+					<li><a href="{%url 'message-detail' pk=client.User.id %}" class="button small special">Message</a></li>
+					<li><a href="{%url 'connect-client' pk=client.User.id %}" class="button small special">Video Call</a></li>
+
+				</ul>
+			</article>
+		{%endfor%}	
+			
+		</section>
+
+
+		<h2>All notes</h2>
+	
+	<section class="posts">
+
+		<article>
+				<ul class="actions">
+		{%for note in all_sessions%}
+			
+					<li><a href="{%url 'view-notes' pk=note.pk %}" class="button small">{{note.client.first_name}} | {{note.title}}</a></li>
+					<li><a onclick="return confirm('Are you sure you want to delete this?')" href="{%url 'delete-notes' pk=note.id%}" class = "button special small">Delete</a></li>
+					<p><br></p>
+				
+		{%endfor%}	
+			</ul>
+			</article>
+		</section>	
+
+{%endblock%}

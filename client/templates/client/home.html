@@ -1,0 +1,92 @@
+{%extends "client/base.html"%}
+
+
+{% block intro %}
+	<div id="intro">
+		<h1>Blissify</h1>
+		<p>An online counselling platform</a><br />
+		</p>
+		<ul class="actions">
+			<li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
+		</ul>
+	</div>
+{% endblock %}	
+
+				
+{%block home_state%}<li class="active">{%endblock%}
+{%if client%}}	
+{%block talk_state%}<li>{%endblock%}
+{%block session_state%}<li>{%endblock%}
+{%else%}
+{%block client_state%}<li>{%endblock%}
+{%block active_state%}<li>{%endblock%}	
+{%endif%}
+{%block faqs_state%}<li>{%endblock%}	
+{%block blog_state%}<li>{%endblock%}
+{%block message_state%}<li>{%endblock%}
+{%block about_state%}<li>{%endblock%}
+				<!-- Main -->
+
+{% block content %}
+
+	<!-- Featured Post -->
+		{%if user.is_authenticated%}
+		<header class="major">
+		
+        <ul class="actions">
+                
+                <li><a href="{% url 'my-profile' %}" class="button big">My Profile</a></li>
+                
+        </ul>
+	</header>
+	{%endif%}
+
+		{%for motivation in motivation_large%}
+		<article class="post featured">
+			<header class="major">
+				<span class="date">{% now "jS F Y H:i" %}</span>
+				<h2><a href="#">{{motivation.quote1}}</a></h2>
+				<p>{{motivation.quote2}}</p>
+			</header>
+			{%if motivation.picture%}
+			<a href="#" class="image main"><img src="/client/media/{{motivation.picture}}" alt="" /></a>
+			{%endif%}
+			<ul class="actions">
+				<li><a href="{{motivation.article_link}}" target="_blank" class="button big">Full Story</a></li>
+			</ul>
+		</article>
+		{%endfor%}
+
+	<!-- Posts -->
+		<section class="posts">
+			{%for motivation in motivation_small%}
+			<article>
+				<header>
+					<h2><a href="{{motivation.article_link}}">{{motivation.title}}</a></h2>
+				</header>
+				<a href="#" class="image fit"><img src="/client/media/{{motivation.picture}}" alt="" /></a>
+				<p>{{motivation.brief}}</p>
+				<ul class="actions">
+					<li><a href="{{motivation.article_link}}" target="_blank" class="button">Full Story</a></li>
+				</ul>
+			</article>
+			{%endfor%}
+			
+			
+		</section>
+		
+		{%for info in extra_content%}
+		<section>
+		<h2>{{info.title}}</h2>
+			<p>{{info.content}}</p>
+		</section>
+		{%endfor%}
+
+
+
+
+{% endblock %}
+
+					
+
+				

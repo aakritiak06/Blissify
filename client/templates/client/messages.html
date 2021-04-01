@@ -1,0 +1,42 @@
+{%extends "client/base.html"%}
+
+{%block home_state%}<li >{%endblock%}
+{%if client%}}  
+{%block talk_state%}<li>{%endblock%}
+{%block session_state%}<li>{%endblock%}
+{%else%}
+{%block client_state%}<li>{%endblock%}
+{%block active_state%}<li>{%endblock%}  
+{%endif%}   
+{%block blog_state%}<li>{%endblock%}
+{%block message_state%}<li class = "active">{%endblock%}
+{%block about_state%}<li>{%endblock%}
+
+{%block content%}
+
+
+{%for Users in messages%}
+
+
+
+<ul class="actions fit">
+	<li><a href="{% url 'message-detail' pk=Users.id %}" class = "button fit">{{Users.first_name}}</a></li>
+	
+	<li><a href="{% url 'message-detail' pk=Users.id %}" class = "button special big">Message</a></li>
+</ul>
+
+
+
+{%endfor%}
+
+
+
+	
+
+
+
+
+
+
+
+{%endblock%}

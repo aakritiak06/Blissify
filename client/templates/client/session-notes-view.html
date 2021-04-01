@@ -1,0 +1,50 @@
+{%extends "client/base.html"%}
+
+
+{%block home_state%}<li >{%endblock%}
+{%if client%}}  
+{%block talk_state%}<li>{%endblock%}
+{%block session_state%}<li>{%endblock%}
+{%else%}
+{%block client_state%}<li>{%endblock%}
+{%block active_state%}<li>{%endblock%}  
+{%endif%}   
+{%block faqs_state%}<li>{%endblock%}
+{%block blog_state%}<li>{%endblock%}
+{%block message_state%}<li>{%endblock%}
+{%block about_state%}<li>{%endblock%}
+
+{%block content%}
+
+
+<header class="major"><h2>{{note.title}}</h2></header>
+
+<div id = "main">
+
+	<p>
+		{{note.about}}
+		<br><br>
+
+		{%if note.fileurl != "-" %}
+		<object data="{{note.fileurl}}" type="application/pdf" width="100%" height="1000px">
+		<iframe src="{{note.fileurl}}" width="100%" height="100%" style="border: none;">
+		</iframe>
+		</object>
+		<b><a target="_blank" href="{{note.fileurl}}">Here's the link to the Notes! (if you want to view it full screen)</a></b>
+		{%endif%}
+
+	</p>
+
+	
+	 
+	
+
+	</div>
+
+
+
+
+{%endblock%}
+
+
+
